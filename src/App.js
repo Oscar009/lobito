@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Schedules from "./components/schedules";
+import { BrowserRouter, Route } from "react-router-dom";
+import Home from "./components/home/Home";
+import { createTheme, ThemeProvider } from "@mui/material";
+import Login from "./components/login/Login";
+import AdapterLuxon from "@mui/lab/AdapterLuxon"; 
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import Signup from "./components/login/Signup";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#0288d1",
+    },
+    secondary: {
+      main: "#d32f2f",
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <LocalizationProvider dateAdapter={AdapterLuxon}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Route exact path="/" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/home" component={Home} />
+            <Route path="/schedules" component={Schedules} />
+          </BrowserRouter>
+        </ThemeProvider>
+      </LocalizationProvider>
     </div>
   );
 }
