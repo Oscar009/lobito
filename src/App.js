@@ -4,9 +4,10 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Home from "./components/home/Home";
 import { createTheme, ThemeProvider } from "@mui/material";
 import Login from "./components/login/Login";
-import AdapterLuxon from "@mui/lab/AdapterLuxon"; 
+import AdapterLuxon from "@mui/lab/AdapterLuxon";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import Signup from "./components/login/Signup";
+import AuthProvider  from "./components/contexts/AuthContext";
 
 const theme = createTheme({
   palette: {
@@ -22,16 +23,18 @@ const theme = createTheme({
 function App() {
   return (
     <div>
-      <LocalizationProvider dateAdapter={AdapterLuxon}>
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <Route exact path="/" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/home" component={Home} />
-            <Route path="/schedules" component={Schedules} />
-          </BrowserRouter>
-        </ThemeProvider>
-      </LocalizationProvider>
+      <AuthProvider>
+        <LocalizationProvider dateAdapter={AdapterLuxon}>
+          <ThemeProvider theme={theme}>
+            <BrowserRouter>
+              <Route exact path="/" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/home" component={Home} />
+              <Route path="/schedules" component={Schedules} />
+            </BrowserRouter>
+          </ThemeProvider>
+        </LocalizationProvider>
+      </AuthProvider>
     </div>
   );
 }

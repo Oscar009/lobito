@@ -7,18 +7,19 @@ const Home = () => {
   let history = useHistory();
   return (
     <Box
-      marginTop="10%"
+      marginTop="8%"
       display="flex"
       flexDirection="column"
       alignItems="center"
     >
-      <Typography>HOME</Typography>
-      <Box
-        display="flex"
-        flexDirection="row"
-        alignContent="center"
-      >
-        <Button onClick={() => history.push("/schedules")}>Horarios Admin</Button>
+      <Box display="flex" flexDirection="row" alignItems="center">
+        <Typography>HOME</Typography>
+        <Button onClick={() => history.push("/")}>Cerrar sesión</Button>
+      </Box>
+      <Box display="flex" flexDirection="row" alignContent="center">
+        <Button onClick={() => history.push("/schedules")}>
+          Horarios Admin
+        </Button>
         <Button onClick={() => history.push("/schedules")}>Horarios</Button>
         <Button onClick={() => history.push("/schedules")}>Perfil</Button>
       </Box>
