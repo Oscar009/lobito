@@ -1,16 +1,14 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useRef, useState } from "react";
-import { useHistory } from "react-router";
+import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Alert from "@mui/material/Alert";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [user, setUser] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  let history = useHistory();
 
   const { signup } = useAuth();
 
@@ -95,7 +93,7 @@ const Signup = () => {
         <br></br>
         <Typography>
           ¿Ya tienes una cuenta?{" "}
-          <Button onClick={() => history.push("/")}>Accede</Button>
+          <Link to="/">Accede</Link>
         </Typography>
       </Box>
     </Box>

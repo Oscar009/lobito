@@ -7,7 +7,8 @@ import Login from "./components/login/Login";
 import AdapterLuxon from "@mui/lab/AdapterLuxon";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import Signup from "./components/login/Signup";
-import AuthProvider  from "./components/contexts/AuthContext";
+import AuthProvider from "./components/contexts/AuthContext";
+import PrivateRoute from "./components/privateRoute/PrivateRoute";
 
 const theme = createTheme({
   palette: {
@@ -29,7 +30,7 @@ function App() {
             <BrowserRouter>
               <Route exact path="/" component={Login} />
               <Route path="/signup" component={Signup} />
-              <Route path="/home" component={Home} />
+              <PrivateRoute path="/home" component={Home} />
               <Route path="/schedules" component={Schedules} />
             </BrowserRouter>
           </ThemeProvider>

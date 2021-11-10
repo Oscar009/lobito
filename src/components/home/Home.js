@@ -1,10 +1,28 @@
 import { Button, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { Box } from "@mui/system";
+import { useAuth } from "../contexts/AuthContext";
+import Alert from "@mui/material/Alert";
 
 const Home = () => {
+  const [error, setError] = useState("");
+
   let history = useHistory();
+
+  const { currentUser, logOut } = useAuth();
+
+  async function handleLogOut() {
+    setError("");
+
+    try {
+      await logOut();
+      history.push("/");
+    } catch {
+      setError("Error al intenar salir");
+    }
+  };
+
   return (
     <Box
       marginTop="8%"
@@ -12,9 +30,17 @@ const Home = () => {
       flexDirection="column"
       alignItems="center"
     >
+      <br></br>
+      {error && (
+        <div>
+          <Alert severity="error">{error}</Alert>
+          <br></br>
+        </div>
+      )}
       <Box display="flex" flexDirection="row" alignItems="center">
-        <Typography>HOME</Typography>
-        <Button onClick={() => history.push("/")}>Cerrar sesión</Button>
+        <Typography>HOME </Typography>
+        <Typography>{currentUser.email} </Typography>
+        <Button onClick={handleLogOut}>Cerrar sesión</Button>
       </Box>
       <Box display="flex" flexDirection="row" alignContent="center">
         <Button onClick={() => history.push("/schedules")}>
