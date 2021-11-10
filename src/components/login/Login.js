@@ -1,9 +1,16 @@
-import { Button, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Alert from "@mui/material/Alert";
 import { Link, useHistory } from "react-router-dom";
+import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 
 const Login = () => {
   const [user, setUser] = useState([]);
@@ -20,7 +27,7 @@ const Login = () => {
       setLoading(true);
       await login(user.email, user.password);
       history.push("/home");
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       setError("Fallo al acceder");
     }
@@ -34,58 +41,64 @@ const Login = () => {
 
   return (
     <Box
-      marginTop="8%"
+      marginTop="5%"
       display="flex"
       flexDirection="row"
       justifyContent="center"
     >
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignContent="center"
-        alignItems="center"
-      >
-        <Typography fontSize="50px">{"Lobito"}</Typography>
-        <br></br>
-        {error && (
-          <div>
-            <Alert severity="error">{error}</Alert>
+      <Card sx={{ maxWidth: 345 }}>
+        <CardContent>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignContent="center"
+            alignItems="center"
+          >
+            <DirectionsBusIcon sx={{ fontSize: 100 }} />
+            <Typography fontSize="4em">{"Lobito"}</Typography>
             <br></br>
-          </div>
-        )}
-        <TextField
-          label="Correo"
-          variant="outlined"
-          type="email"
-          value={user.email}
-          onChange={onHandleChange}
-          name="email"
-        />
-        <br></br>
-        <TextField
-          label="Contraseña"
-          variant="outlined"
-          type="password"
-          value={user.password}
-          onChange={onHandleChange}
-          name="password"
-        />
-        <br></br>
-        <Button
-          disabled={loading}
-          variant="outlined"
-          onClick={() => {
-            loginUser();
-          }}
-        >
-          {"Acceder"}
-        </Button>
-        <br></br>
-        <Typography>
-          {"¿No tienes una cuenta? "}
-          <Link to="/signup">Registrate</Link>
-        </Typography>
-      </Box>
+            {error && (
+              <div>
+                <Alert severity="error">{error}</Alert>
+                <br></br>
+              </div>
+            )}
+            <TextField
+              label="Correo"
+              variant="outlined"
+              type="email"
+              value={user.email}
+              onChange={onHandleChange}
+              name="email"
+            />
+            <br></br>
+            <TextField
+              label="Contraseña"
+              variant="outlined"
+              type="password"
+              value={user.password}
+              onChange={onHandleChange}
+              name="password"
+            />
+            <br></br>
+            <Button
+              disabled={loading}
+              variant="contained"
+              onClick={() => {
+                loginUser();
+              }}
+              size="large"
+            >
+              {"Acceder"}
+            </Button>
+            <br></br>
+            <Typography>
+              {"¿No tienes una cuenta? "}
+              <Link to="/signup">Registrate</Link>
+            </Typography>
+          </Box>
+        </CardContent>
+      </Card>
     </Box>
   );
 };

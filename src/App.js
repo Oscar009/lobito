@@ -13,10 +13,13 @@ import PrivateRoute from "./components/privateRoute/PrivateRoute";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#0288d1",
+      main: "#5AA897",
     },
     secondary: {
-      main: "#d32f2f",
+      main: "#F05945",
+    },
+    background: {
+      main: "#F05945",
     },
   },
 });
