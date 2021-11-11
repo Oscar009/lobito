@@ -20,12 +20,7 @@ const Signup = () => {
   const { signup } = useAuth();
 
   async function createUser() {
-    if (
-      !user.email ||
-      !user.apellidop||
-      !user.apellidom ||
-      !user.name
-    ) {
+    if (!user.email) {
       return setError("Campos faltantes");
     } else if (user.password !== user.confirmPassword) {
       return setError("Las contraseñas no coinciden");
@@ -73,32 +68,6 @@ const Signup = () => {
                 <br></br>
               </div>
             )}
-            <TextField
-              label="Nombre(s)"
-              variant="outlined"
-              type="text"
-              value={user.name}
-              onChange={onHandleChange}
-              name="name"
-            />
-            <br></br>
-            <TextField
-              label="Apellido Paterno"
-              variant="outlined"
-              type="text"
-              value={user.apellidop}
-              onChange={onHandleChange}
-              name="apellidop"
-            />
-            <br></br>
-            <TextField
-              label="Apellido Materno"
-              variant="outlined"
-              type="text"
-              value={user.apellidom}
-              onChange={onHandleChange}
-              name="apellidom"
-            />
             <br></br>
             <TextField
               label="Correo"
@@ -132,7 +101,6 @@ const Signup = () => {
               variant="contained"
               onClick={() => {
                 createUser();
-                //history.push("/home")
               }}
               size="large"
             >

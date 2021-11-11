@@ -1,21 +1,34 @@
 //rafce
 import { MobileTimePicker } from "@mui/lab";
 import { IconButton, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Cancel';
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const Form = () => {
-  const [value, setValue] = useState(new Date("2021-01-01T00:00:00.000Z"));
+  const [value, setValue] = useState(new Date());
 
   const location = useLocation();
 
   let history = useHistory();
   let action = location.state.action;
+
+  const dataLoad = () => {
+    if (action === "update") {
+      let d = new Date();
+      d.setHours(parseInt(location.state.selected.schedule.hour), parseInt(location.state.selected.schedule.min));
+      setValue(d);
+    }
+  };
+
+  useEffect(() => {
+    dataLoad();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box>
@@ -40,9 +53,7 @@ const Form = () => {
         <MobileTimePicker
           label="Seleccionar horario"
           value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-          }}
+          onChange={(newValue) => setValue(newValue)}
           renderInput={(params) => <TextField {...params} />}
         />
         <Box display="flex" flexDirection="row" justifyContent="space-between">

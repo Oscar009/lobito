@@ -13,9 +13,9 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import axios from "axios";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useHistory, useRouteMatch } from "react-router";
+import TopBar from "../topBar/TopBar";
 
 const Browser = () => {
   const [showTable, setShowTable] = useState(false);
@@ -25,14 +25,7 @@ const Browser = () => {
   const { url } = useRouteMatch();
 
   const dataLoad = () => {
-    /* axios
-      .get(" https://api.foursquare.com/v2/venues/VENUE_ID/hours")
-      .then((response) => {
-        setSchedules(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      }); */
+    setSchedules([{hour:"7", min:"00"}, {hour:"7", min:"30"}, ]);
   };
 
   useEffect(() => {
@@ -45,7 +38,7 @@ const Browser = () => {
   }, []);
 
   const styleHead = {
-    backgroundColor: "#5DADE2",
+    backgroundColor: "#DFD3C3",
     fontWeight: "bold",
     textAlign: "center",
     fontSize: "25px",
@@ -53,6 +46,7 @@ const Browser = () => {
 
   return (
     <Box>
+      <TopBar/>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <IconButton
           onClick={() => {
@@ -80,13 +74,13 @@ const Browser = () => {
           alignItems="center"
         >
           <Typography >
-            Selecciona un horario tocando la fila para ver los detalles
+           Crear y editar horarios
           </Typography>
           <br></br>
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
-                <TableRow style={styleHead}>Horarios disponibles</TableRow>
+                <TableRow backgroundColor="primary" style={styleHead}>Horarios disponibles</TableRow>
               </TableHead>
               <TableBody>
                 {schedules.map((schedule, i) => (
@@ -103,7 +97,7 @@ const Browser = () => {
                       });
                     }}
                   >
-                    <TableCell>{schedule}</TableCell>
+                    <TableCell>{`${schedule.hour}:${schedule.min}`}</TableCell>
                   </TableRow> 
                   
                 ))}

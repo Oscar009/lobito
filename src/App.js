@@ -18,9 +18,6 @@ const theme = createTheme({
     secondary: {
       main: "#F05945",
     },
-    background: {
-      main: "#F05945",
-    },
   },
 });
 
@@ -34,7 +31,7 @@ function App() {
               <Route exact path="/" component={Login} />
               <Route path="/signup" component={Signup} />
               <PrivateRoute path="/home" component={Home} />
-              <Route path="/schedules" component={Schedules} />
+              <PrivateRoute path="/schedules" component={Schedules} />
             </BrowserRouter>
           </ThemeProvider>
         </LocalizationProvider>
