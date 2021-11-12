@@ -47,8 +47,8 @@ const Browser = () => {
   return (
     <Box>
       <TopBar/>
-      <Box display="flex" flexDirection="row" justifyContent="space-between">
-        <IconButton
+      <Box marginTop="15%" display="flex" flexDirection="row" justifyContent="space-between">
+      <IconButton
           onClick={() => {
             history.goBack();
           }}
@@ -77,8 +77,10 @@ const Browser = () => {
            Crear y editar horarios
           </Typography>
           <br></br>
-          <TableContainer component={Paper}>
-            <Table>
+          <TableContainer component={Paper} >
+            <Table style={{
+    borderCollapse: 'separate',
+    borderSpacing: '10px 0px'}}>
               <TableHead>
                 <TableRow backgroundColor="primary" style={styleHead}>Horarios disponibles</TableRow>
               </TableHead>

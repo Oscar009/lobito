@@ -16,6 +16,7 @@ const Signup = () => {
   const [user, setUser] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
 
   const { signup } = useAuth();
 
@@ -31,6 +32,8 @@ const Signup = () => {
       setError("");
       setLoading(true);
       await signup(user.email, user.password);
+      setSuccess("Cuenta creada");
+      user.email = user.password = user.confirmPassword = "";
     } catch (err) {
       console.log(err);
       setError("Fallo al crear cuenta");
@@ -45,13 +48,13 @@ const Signup = () => {
 
   return (
     <Box
-      marginTop="2%"
-      marginBottom="2%"
+      marginTop="3%"
+      marginBottom="3%"
       display="flex"
       flexDirection="row"
       justifyContent="center"
     >
-      <Card sx={{ maxWidth: 345 }} styles={{ backgroundColor: "primary" }}>
+      <Card sx={{ maxWidth: 345 }} elevation={10}>
         <CardContent>
           <Box
             display="flex"
@@ -65,6 +68,12 @@ const Signup = () => {
             {error && (
               <div>
                 <Alert severity="error">{error}</Alert>
+                <br></br>
+              </div>
+            )}
+            {success && (
+              <div>
+                <Alert severity="success">{success}</Alert>
                 <br></br>
               </div>
             )}

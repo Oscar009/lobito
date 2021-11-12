@@ -8,6 +8,7 @@ import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
+import TopBar from "../topBar/TopBar";
 
 const Form = () => {
   const [value, setValue] = useState(new Date());
@@ -31,7 +32,10 @@ const Form = () => {
   }, []);
 
   return (
-    <Box>
+    <Box marginTop="15%">
+      <TopBar/>
+      <Box>
+      
       <IconButton
         onClick={() => {
           history.goBack();
@@ -73,6 +77,8 @@ const Form = () => {
         </Box>
       </Box>
     </Box>
+    </Box>
+   
   );
 };
 

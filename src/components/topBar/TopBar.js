@@ -24,10 +24,17 @@ const TopBar = () => {
     }
   }
   return (
-    <Box>
-      <AppBar position="relative" elevation={10}>
-        <Box display="flex" flexDirection="row" justifyContent="space-between">
-          <Typography fontSize="30px">{"LOBITO"}</Typography>
+    <Box >
+      <AppBar position="fixed" elevation={5} marginBottom="10%">
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Typography margin="1%" fontSize="30px">
+            {"LOBITO"}
+          </Typography>
           <br></br>
           {error && (
             <div>
@@ -36,10 +43,10 @@ const TopBar = () => {
             </div>
           )}
           <Box>
-            <IconButton>
+            <IconButton onClick={()=>{history.push("/profile")}}>
               <AccountCircleIcon fontSize="large" />
             </IconButton>
-            <IconButton onClick={handleLogOut}>
+            <IconButton  onClick={handleLogOut}>
               <ExitToAppIcon fontSize="large" />
             </IconButton>
           </Box>

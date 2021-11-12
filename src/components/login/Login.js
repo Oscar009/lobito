@@ -41,12 +41,13 @@ const Login = () => {
 
   return (
     <Box
-      marginTop="5%"
+      marginTop="3%"
+      marginBottom="3%"
       display="flex"
       flexDirection="row"
       justifyContent="center"
     >
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345 }} elevation={10}>
         <CardContent>
           <Box
             display="flex"

@@ -9,6 +9,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import Signup from "./components/login/Signup";
 import AuthProvider from "./components/contexts/AuthContext";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
+import Profile from "./components/profile/Profile";
 
 const theme = createTheme({
   palette: {
@@ -31,7 +32,8 @@ function App() {
               <Route exact path="/" component={Login} />
               <Route path="/signup" component={Signup} />
               <PrivateRoute path="/home" component={Home} />
-              <PrivateRoute path="/schedules" component={Schedules} />
+              <Route path="/schedules" component={Schedules} />
+              <Route path="/profile" component={Profile} />
             </BrowserRouter>
           </ThemeProvider>
         </LocalizationProvider>
