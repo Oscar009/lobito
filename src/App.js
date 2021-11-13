@@ -32,8 +32,8 @@ function App() {
               <Route exact path="/" component={Login} />
               <Route path="/signup" component={Signup} />
               <PrivateRoute path="/home" component={Home} />
-              <Route path="/schedules" component={Schedules} />
-              <Route path="/profile" component={Profile} />
+              <PrivateRoute path="/schedules" component={Schedules} />
+              <PrivateRoute path="/profile" component={Profile} />
             </BrowserRouter>
           </ThemeProvider>
         </LocalizationProvider>

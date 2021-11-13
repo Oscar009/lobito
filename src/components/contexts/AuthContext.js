@@ -25,19 +25,25 @@ const AuthProvider = ({ children }) => {
     return auth.signOut();
   }
 
-  useEffect(() => {
-    const unsuscribe = auth.onAuthStateChanged((user) => {
-      setLoading(false);
+  const unSuscribe = auth.onAuthStateChanged((user) => {
+    setLoading(false);
+    if (user !== null) {
       setCurrentUser(user);
-    });
-    return unsuscribe;
-  }, []);
+      return true;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    unSuscribe();
+  }, [unSuscribe]);
 
   const value = {
     currentUser,
     signup,
     login,
     logOut,
+    unSuscribe,
   };
 
   return (

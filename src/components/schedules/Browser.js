@@ -13,7 +13,6 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useHistory, useRouteMatch } from "react-router";
 import TopBar from "../topBar/TopBar";
 
@@ -46,15 +45,8 @@ const Browser = () => {
 
   return (
     <Box>
-      <TopBar/>
-      <Box marginTop="15%" display="flex" flexDirection="row" justifyContent="space-between">
-      <IconButton
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          <ArrowBackIcon fontSize="large" style={{ color: "#000" }} />
-        </IconButton>
+      <TopBar isReturnVisible={true}/>
+      <Box marginTop="15%" display="flex" flexDirection="row-reverse" justifyContent="space-between">
         <IconButton onClick={() => {
               history.push({
                 pathname: `${url}/add`,

@@ -18,7 +18,7 @@ const Home = () => {
     <div>
       <TopBar />
       <br></br>
-      <Box margin="10%" display="grid">
+      <Box marginTop="15%" marginBottom="5%" display="grid">
         <Grid
           container
           spacing={2}

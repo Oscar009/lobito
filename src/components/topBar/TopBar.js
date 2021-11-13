@@ -1,13 +1,28 @@
-import { Alert, AppBar, IconButton, Typography } from "@mui/material";
+import {
+  Alert,
+  AppBar,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Box } from "@mui/system";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 
-const TopBar = () => {
+const TopBar = (props) => {
   const [error, setError] = useState("");
+  const [isSignOut, setIsSignOut] = useState(false);
 
   let history = useHistory();
 
@@ -17,14 +32,20 @@ const TopBar = () => {
     setError("");
 
     try {
-      await logOut();
+      await logOut()
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       history.push("/");
     } catch {
       setError("Error al intenar salir");
     }
   }
   return (
-    <Box >
+    <Box>
       <AppBar position="fixed" elevation={5} marginBottom="10%">
         <Box
           display="flex"
@@ -32,10 +53,24 @@ const TopBar = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography margin="1%" fontSize="30px">
-            {"LOBITO"}
-          </Typography>
-          <br></br>
+          <Box display="flex" flexDirection="row" alignItems="center">
+            {props.isReturnVisible && (
+              <IconButton
+                onClick={() => {
+                  history.goBack();
+                }}
+              >
+                <ArrowBackIcon fontSize="large" style={{ color: "#000" }} />
+              </IconButton>
+            )}
+            <br></br>
+            <br></br>
+            <DirectionsBusIcon fontSize="large" />
+            <Typography margin="1%" fontSize="30px">
+              {"LOBITO"}
+            </Typography>
+            <br></br>
+          </Box>
           {error && (
             <div>
               <Alert severity="error">{error}</Alert>
@@ -43,15 +78,39 @@ const TopBar = () => {
             </div>
           )}
           <Box>
-            <IconButton onClick={()=>{history.push("/profile")}}>
+            <IconButton
+              onClick={() => {
+                history.push("/profile");
+              }}
+            >
               <AccountCircleIcon fontSize="large" />
             </IconButton>
-            <IconButton  onClick={handleLogOut}>
+            <IconButton
+              onClick={() => {
+                setIsSignOut(true);
+              }}
+            >
               <ExitToAppIcon fontSize="large" />
             </IconButton>
           </Box>
         </Box>
       </AppBar>
+      <Dialog open={isSignOut} onClose={() => setIsSignOut(false)}>
+        <DialogTitle>{"Sesión"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {"¿Seguro que quiere cerrar sesión?"}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <IconButton>
+            <CheckCircleIcon fontSize="large" onClick={handleLogOut} />
+          </IconButton>
+          <IconButton>
+            <CancelIcon fontSize="large" onClick={() => setIsSignOut(false)} />
+          </IconButton>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
