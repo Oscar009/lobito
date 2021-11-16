@@ -28,7 +28,7 @@ const Home = () => {
           style={{ minHeight: "50vh" }}
         >
           <Grid item xs={3}>
-            <Card sx={{ maxWidth: 345 }} elevation={10}>
+            <Card elevation={10}>
               <CardActionArea>
                 <CardMedia>
                   <img
@@ -49,7 +49,7 @@ const Home = () => {
             </Card>
           </Grid>
           <Grid item xs={3}>
-            <Card sx={{ maxWidth: 345 }} elevation={10}>
+            <Card elevation={10}>
               <CardActionArea onClick={() => history.push("/schedules")}>
                 <CardMedia >
                   <img 
@@ -70,7 +70,7 @@ const Home = () => {
             </Card>
           </Grid>
           <Grid item xs={3}>
-            <Card sx={3} elevation={10}>
+            <Card elevation={10}>
               <CardActionArea>
                 <CardMedia >
                   <img

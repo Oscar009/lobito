@@ -13,7 +13,9 @@ import { Link } from "react-router-dom";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 
 const Signup = () => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState([
+    { email: "", password: "", confirmPassword: "" },
+  ]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");

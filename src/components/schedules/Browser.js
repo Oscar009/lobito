@@ -15,26 +15,38 @@ import InfoIcon from "@mui/icons-material/Info";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useHistory, useRouteMatch } from "react-router";
 import TopBar from "../topBar/TopBar";
+import firebase from "../../firebase";
+
+const db = firebase.database();
 
 const Browser = () => {
   const [showTable, setShowTable] = useState(false);
-  const [schedules, setSchedules] = useState(["7:00 AM", "8:00 AM", "9:00 AM"]);
+  const [schedules, setschedules] = useState([]);
 
   let history = useHistory();
   const { url } = useRouteMatch();
 
-  const dataLoad = () => {
-    setSchedules([{hour:"7", min:"00"}, {hour:"7", min:"30"}, ]);
-  };
-
   useEffect(() => {
-    dataLoad();
-    if (schedules.length) {
-      setShowTable(true);
-    }
-    setShowTable(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const ref = db.ref("/schedules");
+    ref.on(
+      "value",
+      (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          const childKey = childSnapshot.key;
+          const childData = childSnapshot.val();
+          console.log(childKey, childData);
+          let row = {
+            key: childKey,
+            hour: childData.hour,
+            min: childData.min,
+          }
+          schedules.push(row);
+        });
+        setShowTable(true);
+      },
+    );
+    return () => ref.off(); 
+  }, [schedules]);
 
   const styleHead = {
     backgroundColor: "#DFD3C3",
@@ -45,16 +57,23 @@ const Browser = () => {
 
   return (
     <Box>
-      <TopBar isReturnVisible={true}/>
-      <Box marginTop="15%" display="flex" flexDirection="row-reverse" justifyContent="space-between">
-        <IconButton onClick={() => {
-              history.push({
-                pathname: `${url}/add`,
-                state: {
-                  action: "add",
-                },
-              });
-            }}>
+      <TopBar isReturnVisible={true} />
+      <Box
+        marginTop="15%"
+        display="flex"
+        flexDirection="row-reverse"
+        justifyContent="space-between"
+      >
+        <IconButton
+          onClick={() => {
+            history.push({
+              pathname: `${url}/add`,
+              state: {
+                action: "add",
+              },
+            });
+          }}
+        >
           <AddCircleIcon fontSize="large" style={{ color: "#000" }} />
         </IconButton>
       </Box>
@@ -65,20 +84,23 @@ const Browser = () => {
           JustifyContent="center"
           alignItems="center"
         >
-          <Typography >
-           Crear y editar horarios
-          </Typography>
+          <Typography>Crear y editar horarios</Typography>
           <br></br>
-          <TableContainer component={Paper} >
-            <Table style={{
-    borderCollapse: 'separate',
-    borderSpacing: '10px 0px'}}>
+          <TableContainer component={Paper}>
+            <Table
+              style={{
+                borderCollapse: "separate",
+                borderSpacing: "10px 0px",
+              }}
+            >
               <TableHead>
-                <TableRow backgroundColor="primary" style={styleHead}>Horarios disponibles</TableRow>
+                <TableRow backgroundColor="primary" style={styleHead}>
+                  Horarios disponibles
+                </TableRow>
               </TableHead>
               <TableBody>
                 {schedules.map((schedule, i) => (
-                   <TableRow
+                  <TableRow
                     hover
                     key={schedule.id}
                     onClick={() => {
@@ -91,9 +113,9 @@ const Browser = () => {
                       });
                     }}
                   >
-                    <TableCell>{`${schedule.hour}:${schedule.min}`}</TableCell>
-                  </TableRow> 
-                  
+                    <TableCell>{`${schedule.hour}:${schedule.min}`}</TableCell> 
+                    
+                  </TableRow>
                 ))}
               </TableBody>
             </Table>

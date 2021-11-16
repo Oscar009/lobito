@@ -13,7 +13,9 @@ import { Link, useHistory } from "react-router-dom";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 
 const Login = () => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState([
+    { email: "", password: "" },
+  ]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 

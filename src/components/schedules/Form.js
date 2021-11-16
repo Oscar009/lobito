@@ -17,6 +17,9 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import TopBar from "../topBar/TopBar";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import firebase from "../../firebase"
+
+const db = firebase.database();
 
 const Form = () => {
   const [value, setValue] = useState(new Date());
@@ -26,6 +29,15 @@ const Form = () => {
 
   let history = useHistory();
   let action = location.state.action;
+
+  const postNewSchedule = () =>{
+    const schedulesRef= db.ref("schedules");
+    let newHour = {
+      hour: value.getHours(),
+      min: value.getMinutes(),
+    }
+    schedulesRef.push(newHour);
+  }
 
   const dataLoad = () => {
     if (action === "update") {
@@ -85,7 +97,10 @@ const Form = () => {
             >
               <CancelIcon fontSize="large" color="secondary" />
             </IconButton>
-            <IconButton styles={{ margin: "20px" }}>
+            <IconButton styles={{ margin: "20px" }} onClick={() => {
+              postNewSchedule();
+              history.goBack();
+              }}>
               <SaveIcon fontSize="large" color="primary" />
             </IconButton>
           </Box>
