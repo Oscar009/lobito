@@ -21,7 +21,7 @@ const db = firebase.database();
 
 const Browser = () => {
   const [showTable, setShowTable] = useState(false);
-  const [schedules, setschedules] = useState([]);
+  const [schedules] = useState([]);
 
   let history = useHistory();
   const { url } = useRouteMatch();

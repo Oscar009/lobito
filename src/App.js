@@ -7,7 +7,7 @@ import Login from "./components/login/Login";
 import AdapterLuxon from "@mui/lab/AdapterLuxon";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import Signup from "./components/login/Signup";
-import AuthProvider from "./components/contexts/AuthContext";
+import {AuthProvider} from "./components/contexts/AuthContext";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import Profile from "./components/profile/Profile";
 
