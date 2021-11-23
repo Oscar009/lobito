@@ -25,6 +25,7 @@ const Form = () => {
   let [value, setValue] = useState(new Date());
   const [isDelete, setIsDelete] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
+  const [keydb, setKeydb] = useState("");
 
   const location = useLocation();
 
@@ -54,6 +55,13 @@ const Form = () => {
     }
   };
 
+  const deleteSchedule = () => {
+    const schedulesRef = db.ref(`/schedules/${keydb}`);
+    schedulesRef.remove();
+    setIsDelete(false);
+    history.goBack();
+  };
+
   const dataLoad = () => {
     if (action === "update") {
       let d = new Date();
@@ -62,6 +70,8 @@ const Form = () => {
         parseInt(location.state.selected.schedule.min)
       );
       setValue(d);
+      setKeydb(location.state.selected.schedule.key);
+      console.log(keydb);
     }
   };
 
@@ -141,9 +151,7 @@ const Form = () => {
         <DialogActions>
           <IconButton
             onClick={() => {
-              console.log("Horario eliminado");
-              setIsDelete(false);
-              history.goBack();
+              deleteSchedule();
             }}
           >
             <CheckCircleIcon fontSize="large" />
