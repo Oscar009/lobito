@@ -10,6 +10,8 @@ import Signup from "./components/login/Signup";
 import {AuthProvider} from "./components/contexts/AuthContext";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import Profile from "./components/profile/Profile";
+import schedulesDetails from "./components/schedulesDetails";
+import Temperatures from "./components/temperatures/Temperatures"
 
 const theme = createTheme({
   palette: {
@@ -34,6 +36,8 @@ function App() {
               <PrivateRoute path="/home" component={Home} />
               <PrivateRoute path="/schedules" component={Schedules} />
               <PrivateRoute path="/profile" component={Profile} />
+              <PrivateRoute path="/schedulesDetails" component={schedulesDetails} />
+              <PrivateRoute path="/temperatures" component={Temperatures} />
             </BrowserRouter>
           </ThemeProvider>
         </LocalizationProvider>

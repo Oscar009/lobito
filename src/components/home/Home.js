@@ -28,7 +28,7 @@ const Home = () => {
     <div>
       <TopBar />
       <br></br>
-      <Box marginTop="15%" marginBottom="5%" display="grid">
+      <Box marginTop="15%" display="grid">
         <Grid
           container
           spacing={2}
@@ -39,7 +39,7 @@ const Home = () => {
         >
           <Grid item xs={3}>
             <Card elevation={10}>
-              <CardActionArea>
+              <CardActionArea onClick={() => history.push("/schedulesDetails")}>
                 <CardMedia>
                   <img
                     height="300"
@@ -84,7 +84,7 @@ const Home = () => {
           {isAdmin && (
             <Grid item xs={3}>
               <Card elevation={10}>
-                <CardActionArea>
+                <CardActionArea onClick={() => history.push("/temperatures")}>
                   <CardMedia>
                     <img
                       height="300"

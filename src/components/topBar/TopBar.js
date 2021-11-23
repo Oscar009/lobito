@@ -46,7 +46,7 @@ const TopBar = (props) => {
   }
   return (
     <Box>
-      <AppBar position="fixed" elevation={5} marginBottom="10%">
+      <AppBar position="fixed" elevation={5}>
         <Box
           display="flex"
           flexDirection="row"
@@ -103,11 +103,11 @@ const TopBar = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <IconButton>
-            <CheckCircleIcon fontSize="large" onClick={handleLogOut} />
+          <IconButton onClick={handleLogOut}>
+            <CheckCircleIcon fontSize="large"  />
           </IconButton>
-          <IconButton>
-            <CancelIcon fontSize="large" onClick={() => setIsSignOut(false)} />
+          <IconButton onClick={() => setIsSignOut(false)}>
+            <CancelIcon fontSize="large"  />
           </IconButton>
         </DialogActions>
       </Dialog>

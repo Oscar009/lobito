@@ -11,6 +11,9 @@ import { useAuth } from "../contexts/AuthContext";
 import Alert from "@mui/material/Alert";
 import { Link } from "react-router-dom";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
+import firebase from "../../firebase";
+
+const db = firebase.database();
 
 const Signup = () => {
   const [user, setUser] = useState([
@@ -32,9 +35,11 @@ const Signup = () => {
     }
     try {
       setError("");
+      setSuccess("");
       setLoading(true);
       await signup(user.email, user.password);
       setSuccess("Cuenta creada");
+      postNewUser();
       user.email = user.password = user.confirmPassword = "";
     } catch (err) {
       console.log(err);
@@ -42,6 +47,16 @@ const Signup = () => {
     }
     setLoading(false);
   }
+
+
+  const postNewUser = () => {
+    const ref = db.ref("users");
+    let newUser = {
+      email: user.email,
+      horario: "",
+    };
+    ref.push(newUser);
+  };
 
   const onHandleChange = (e) => {
     const { name, value } = e.target;
