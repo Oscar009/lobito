@@ -53,7 +53,11 @@ const Temperatures = () => {
     backgroundColor: "#DFD3C3",
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: "25px",
+    fontSize: "100%",
+  };
+
+  const styleRow = {
+    textAlign: "center",
   };
 
   return (
@@ -72,20 +76,28 @@ const Temperatures = () => {
           <br></br>
           <TableContainer component={Paper}>
             <Table
-              style={{
+             /*  style={{
                 borderCollapse: "separate",
                 borderSpacing: "10px 0px",
-              }}
+              }} */
             >
               <TableHead>
-                <TableRow style={styleHead}>Temperaturas</TableRow>
+                <TableRow>
+                  <TableCell style={styleHead}>Estado</TableCell>
+                  <TableCell style={styleHead}>Temperatura</TableCell>
+                  <TableCell style={styleHead}>Correo</TableCell>
+                  <TableCell style={styleHead}>Hora</TableCell>
+                  <TableCell style={styleHead}>Fecha</TableCell>
+                </TableRow>
               </TableHead>
               <TableBody>
                 {temperatures.map((temp, i) => (
-                  <TableRow
-                    key={temp.id}
-                  >
-                    <TableCell>{`${temp.temperature} - ${temp.status} - ${temp.date} - ${temp.email} - ${temp.hora}`}</TableCell>
+                  <TableRow key={temp.id}>
+                    <TableCell style={styleRow}>{`${temp.status}`}</TableCell>
+                    <TableCell style={styleRow}>{`${temp.temperature}`}</TableCell>
+                    <TableCell style={styleRow}>{`${temp.email}`}</TableCell>
+                    <TableCell style={styleRow}>{`${temp.hora}`}</TableCell>
+                    <TableCell style={styleRow}>{`${temp.date}`}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
