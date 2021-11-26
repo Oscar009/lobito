@@ -25,26 +25,29 @@ const Temperatures = () => {
   let history = useHistory();
   const { currentUser } = useAuth();
 
-/*   useEffect(() => {
+  useEffect(() => {
     if (currentUser.email !== "oortizbarba@gmail.com") {
       history.push("/home");
     }
-    const ref = db.ref("/schedules");
+    const ref = db.ref("/temperatures");
     ref.on("value", (snapshot) => {
       snapshot.forEach((childSnapshot) => {
         const childKey = childSnapshot.key;
         const childData = childSnapshot.val();
         let row = {
           key: childKey,
-          hour: childData.hour,
-          min: childData.min,
+          date: childData.date,
+          email: childData.email,
+          hora: childData.hora,
+          status: childData.status,
+          temperature: childData.temperature,
         };
-        schedules.push(row);
+        temperatures.push(row);
       });
       setShowTable(true);
     });
     return () => ref.off();
-  }, [schedules, currentUser.email, history]); */
+  }, [temperatures, currentUser.email, history]);
 
   const styleHead = {
     backgroundColor: "#DFD3C3",
@@ -65,7 +68,7 @@ const Temperatures = () => {
           marginTop="15%"
         >
           <br></br>
-          <Typography>Ver y apartar un horario</Typography>
+          <Typography>Log temperaturas</Typography>
           <br></br>
           <TableContainer component={Paper}>
             <Table
@@ -75,12 +78,14 @@ const Temperatures = () => {
               }}
             >
               <TableHead>
-                <TableRow style={styleHead}>Horarios disponibles</TableRow>
+                <TableRow style={styleHead}>Temperaturas</TableRow>
               </TableHead>
               <TableBody>
                 {temperatures.map((temp, i) => (
-                  <TableRow key={temp.id}>
-                    <TableCell>{`${temp.hour}:${temp.min}`}</TableCell>
+                  <TableRow
+                    key={temp.id}
+                  >
+                    <TableCell>{`${temp.temperature} - ${temp.status} - ${temp.date} - ${temp.email} - ${temp.hora}`}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
