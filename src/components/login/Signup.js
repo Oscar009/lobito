@@ -26,12 +26,15 @@ const Signup = () => {
   const { signup } = useAuth();
 
   async function createUser() {
+    
     if (!user.email) {
       return setError("Campos faltantes");
     } else if (user.password !== user.confirmPassword) {
       return setError("Las contraseñas no coinciden");
     } else if (user.password.length < 5) {
       return setError("La contraseña debe contener más de 6 caracteres");
+    } else if(validarCorreo()){
+      return setError("Correo no válido");
     }
     try {
       setError("");
@@ -48,7 +51,16 @@ const Signup = () => {
     setLoading(false);
   }
 
-
+  const validarCorreo = () => {
+    var expReg = /^(za)+[0-9\w+]+@(zapopan+\.tecmm+\.edu+\.mx)$/;
+    var esValido= expReg.test(user.email);
+    if(esValido){
+      console.log("es valido");
+        return false;
+    } else {
+        return true;
+    }
+}
   const postNewUser = () => {
     const ref = db.ref("users");
     let newUser = {

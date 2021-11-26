@@ -4,6 +4,7 @@ import {
   Card,
   CardMedia,
   CardContent,
+  Button,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ import TopBar from "../topBar/TopBar";
 import { useLocation } from "react-router";
 import firebase from "../../firebase";
 import { useAuth } from "../contexts/AuthContext";
+import { ref, set } from "firebase/database";
 
 const db = firebase.database();
 
@@ -23,6 +25,19 @@ const View = () => {
   const [checked, setChecked] = useState(false);
   const [schedule, setSchedule] = useState({});
   const [user, setUser] = useState({});
+
+  /* const selectHour = () => {
+    set(ref(db, 'users/' + user.key), {
+      email: currentUser.email,
+      horario: schedule.key,
+    })
+    .then(() => {
+      // Data saved successfully!
+    })
+    .catch((error) => {
+      // The write failed...
+    });
+  } */
 
   useEffect(() => {
     const ref = db.ref("/schedules");
@@ -41,7 +56,7 @@ const View = () => {
         }
       });
     });
-    const ref1 = db.ref("/users");
+    /*  const ref1 = db.ref("/users");
     ref1.on("value", (snapshot) => {
       snapshot.forEach((childSnapshot) => {
         const childKey = childSnapshot.key;
@@ -55,14 +70,15 @@ const View = () => {
           setUser(row);
         }
       });
-    });
+    });*/
   }, [currentUser.email, key]);
 
   return (
     <div>
       <TopBar isReturnVisible={true} />
       <Box
-        marginTop="5%"
+        marginTop="15%"
+        marginBottom="15%"
         display="flex"
         flexDirection="column"
         justifyContent="center"
@@ -89,7 +105,6 @@ const View = () => {
               <Typography variant="body2" color="text.secondary">
                 {"Lugares disponibles: "}
                 {schedule.available}
-                {user.email}
               </Typography>
             </Box>
             <br></br>
@@ -106,9 +121,17 @@ const View = () => {
                 onChange={() => setChecked(!checked)}
               />
             </Box>
+            <Box display="flex" flexDirection="row">
+              <Button
+                variant="outlined"
+                disabled={!checked}
+                onClick={() => {} /* selectHour() */}
+              >
+                {"Aceptar"}
+              </Button>
+            </Box>
           </CardContent>
         </Card>
-
         <Typography></Typography>
       </Box>
     </div>
